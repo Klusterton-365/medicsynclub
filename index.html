@@ -13,7 +13,16 @@
 </head>
 <body>
     <div class="w-full relative">
-        <header class="w-full bg-transparent absolute">
+        <div class="loader h-screen absolute w-full bg-slate-200 flex items-center justify-center z-10" id="loader">
+            <div class="loading">
+                <svg height="48px" width="64px">
+                    <polyline id="back" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+                  <polyline id="front" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+                </svg>
+              </div>
+        </div>
+
+        <header class="w-full bg-transparent absolute z-0">
             <div class="w-11/12 mx-auto flex items-center justify-between my-5">
                 <a href="#" class="font-bold text-xl text-green-500">Medicsyn Club</a>
                 <div class="md:flex items-center gap-3 hidden">
@@ -69,6 +78,13 @@
                 </div>
             </div>
         </section>
+
+        <section class="w-full">
+            <div class="w-11/12 mx-auto">
+                
+            </div>
+        </section>
     </div>
+    <script src="./app.js"></script>
 </body>
 </html>
