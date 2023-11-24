@@ -1,0 +1,28 @@
+* {
+    font-family: 'Space Grotesk', sans-serif;
+}
+.wrapDiv {
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #ffffff, #dfeeff, #a1e4ff, #50dce6, #10cfae);
+}
+
+* {
+    transition: .2s all ease-in;
+}
+
+.login-inp {
+    outline: none;
+}
+
+/* home */
+
+.hero-wrap {
+    background-image: url('./img/img1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-blur {
+    background-color: rgb(0, 0, 0, .3);
+}
