@@ -13,13 +13,36 @@
 </head>
 <body>
     <div class="w-full relative">
-        <div class="loader h-screen absolute w-full bg-slate-200 flex items-center justify-center z-10" id="loader">
+        <div class="loader h-screen absolute w-full bg-slate-200 flex items-center justify-center z-20" id="loader">
             <div class="loading">
                 <svg height="48px" width="64px">
                     <polyline id="back" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
                   <polyline id="front" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
                 </svg>
               </div>
+        </div>
+
+        <div class="w-full h-screen bg-green-500 absolute z-10 block md:hidden hidden" id="menu">
+            <div class="w-11/12 mx-auto h-full">
+                <div class="w-full flex items-center justify-between my-5">
+                    <a href="#" class="font-bold text-xl text-white">Medicsyn Club</a>
+                    <div class="md:flex items-center gap-3 hidden">
+                        <a href="#" class="h-10 w-24 text-center flex items-center justify-center bg-black 
+                        rounded-lg text-white font-medium hover:bg-grey-900">Login</a>
+                        <a href="#" class="h-10 w-24 text-center flex items-center justify-center bg-white 
+                        rounded-lg text-black hover:bg-gray-200 hover:border-0">Register</a>
+                    </div>
+                    <div class="flex items-center justify-center md:hidden">
+                        <button onclick="menuController()" class="text-base text-white font-bold border-b-2 border-white">CLOSE</button>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col h-5/6 items-center justify-center space-y-5">
+                    <a href="#" class="h-10 w-24 text-center flex items-center justify-center bg-black 
+                    rounded-lg text-white font-medium hover:bg-grey-900">Login</a>
+                    <a href="#" class="h-10 w-24 text-center flex items-center justify-center bg-white 
+                    rounded-lg text-black hover:bg-gray-200 hover:border-0">Register</a>
+                </div>
+            </div>
         </div>
 
         <header class="w-full bg-transparent absolute z-0">
@@ -32,7 +55,7 @@
                     rounded-lg text-black hover:bg-gray-200 hover:border-0">Register</a>
                 </div>
                 <div class="flex items-center justify-center md:hidden">
-                    <button class="text-base text-green-500 font-bold border-b-2 border-green-500">MENU</button>
+                    <button onclick="menuController()" class="text-base text-green-500 font-bold border-b-2 border-green-500">MENU</button>
                 </div>
             </div>
         </header>
@@ -169,10 +192,19 @@
                   </div>
                 </div>
                 <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
+                    <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
+                      <img alt="team" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="https://dummyimage.com/88x88">
+                      <div class="flex-grow">
+                        <h2 class="text-gray-900 title-font font-medium">Divine Favour</h2>
+                        <p class="text-gray-500">UI Designer</p>
+                      </div>
+                    </div>
+                  </div>
+                <div class="p-2 lg:w-1/3 md:w-1/2 w-full">
                   <div class="h-full flex items-center border-gray-200 border p-4 rounded-lg">
                     <img alt="team" class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4" src="https://dummyimage.com/90x90">
                     <div class="flex-grow">
-                      <h2 class="text-gray-900 title-font font-medium">Unknown Guy</h2>
+                      <h2 class="text-gray-900 title-font font-medium">Ezema Peter</h2>
                       <p class="text-gray-500">UI Designer</p>
                     </div>
                   </div>
