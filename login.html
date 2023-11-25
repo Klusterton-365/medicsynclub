@@ -11,10 +11,19 @@
     rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 </head>
-<body class="h-full">
+<body class="h-full relative">
+<div class="loader h-screen absolute w-full bg-slate-200 flex items-center justify-center z-20" id="loader">
+  <div class="loading">
+      <svg height="48px" width="64px">
+          <polyline id="back" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+        <polyline id="front" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+      </svg>
+    </div>
+</div>
+
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm text-center">
-        <a href="#" class="font-bold text-2xl text-green-500">MC.</a>
+        <a href="./index.html" class="font-bold text-2xl text-green-500">MC.</a>
         <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Log in to your account</h2>
     </div>
   
@@ -59,6 +68,6 @@
       </p>
     </div>
   </div>
-  
+  <script src="./app.js"></script>
 </body>
 </html>
