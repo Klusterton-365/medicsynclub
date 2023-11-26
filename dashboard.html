@@ -70,11 +70,11 @@
                     py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" 
                     aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                     
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" 
-                    tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 username" role="menuitem" 
+                    tabindex="-1" id="user-menu-item-0" >Your Profile</a>
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" 
                     tabindex="-1" id="user-menu-item-1">Settings</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:text-black" role="menuitem" 
+                    <a href="#" onclick="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:text-black" role="menuitem" 
                     tabindex="-1" id="user-menu-item-2">Sign out</a>
                     </div>
                 </div>
@@ -122,8 +122,8 @@
                 <img class="h-10 w-10 rounded-full" src="https://dummyimage.com/88x88" alt="">
                 </div>
                 <div class="ml-3">
-                <div class="text-base font-medium leading-none text-white">Alexander Great</div>
-                <div class="text-sm font-medium leading-none text-white">alex_dgreat001@protonmail.com</div>
+                <div class="text-base font-medium leading-none text-white fullname">Alexander Great</div>
+                <div class="text-sm font-medium leading-none text-white email">alex_dgreat001@protonmail.com</div>
                 </div>
                 <button type="button" class="relative ml-auto flex-shrink-0 rounded-full bg-green-700 p-1 text-white 
                 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 
@@ -140,10 +140,10 @@
             </div>
             <div class="mt-3 space-y-1 px-2">
                 <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-white 
-                hover:bg-green-400 hover:text-white">Your Profile</a>
+                hover:bg-green-400 hover:text-white username">Your Profile</a>
                 <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-white 
                 hover:bg-green-400 hover:text-white">Settings</a>
-                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-white 
+                <a onclick="logout()" class="block rounded-md px-3 py-2 text-base font-medium text-white 
                 hover:bg-green-400 hover:text-white">Sign out</a>
             </div>
             </div>
@@ -173,7 +173,6 @@
                 type: 'GET',
                 url: `https://klusterthon-365-api.000webhostapp.com/user/${userId}`,
                 success: function(response) {
-                    console.log(response);
                     if (response.status == false) {
                         window.Location = "login.html";
                     } else {
@@ -186,6 +185,16 @@
                 }
             });
         }
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        const usernameDisplay = document.querySelectorAll('.username').forEach(element => {
+            element.innerHTML = `${user.username}`;
+        });
+        const fullnameDisplay = document.querySelectorAll('.fullname').forEach(element => {
+            element.innerHTML = user.fullname ?? "Update your details";
+        });
+        const emailDisplay = document.querySelectorAll('.email').forEach(element => {
+            element.innerHTML = `${user.email}`;
+        });
     </script>
 </body>
 </html>
