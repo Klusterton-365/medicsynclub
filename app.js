@@ -13,5 +13,3 @@ function menuController() {
 		isOpened = false;
 	}
 }
-
-  

@@ -9,8 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" 
     rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./style.css">    
+ </head>
 <body class="h-full">
     <div class="min-h-full">
         <nav class="bg-green-500">
@@ -160,6 +161,31 @@
             </div>
         </main>
     </div>
-  <script src="./app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./app.js"></script>
+    <script>
+        const userId = window.localStorage.getItem('token');
+        if(userId == null || userId == "undefined"){
+            window.location = "login";
+        }else{
+            $.ajax({
+                type: 'GET',
+                url: `https://klusterthon-365-api.000webhostapp.com/user/${userId}`,
+                success: function(response) {
+                    console.log(response);
+                    if (response.status == false) {
+                        window.Location = "login";
+                    } else {
+                        const userObject = response.data;
+                        sessionStorage.setItem('user', JSON.stringify(userObject));
+                    }
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    </script>
 </body>
 </html>
