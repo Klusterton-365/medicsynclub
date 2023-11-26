@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" 
     rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./style.css">
 </head>
 <body class="h-full relative">
@@ -28,7 +29,7 @@
     </div>
   
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" action="" method="POST" onsubmit="login(event)">
         <div>
           <label for="email" class="block text-sm font-medium leading-6 text-black">Email address</label>
           <div class="mt-2">
@@ -68,6 +69,59 @@
       </p>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="./app.js"></script>
+  <script>
+    
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-top-center",
+      "preventDuplicates": true,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "3000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    };
+    
+    function login(event) {
+      event.preventDefault();
+    
+      // Create FormData object
+      const formData = new FormData();
+      formData.append('email', event.target[0].value);
+      formData.append('password', event.target[1].value);
+    
+      $.ajax({
+        type: 'POST',
+        url: 'https://klusterthon-365-api.000webhostapp.com/user/login',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          if (response.status == false) {
+            toastr.warning(response.message);
+          } else {
+            console.log(response)
+            toastr.success(response.message);
+            window.localStorage.setItem('token',response.userId);
+          }
+        },
+        error: function(error) {
+          toastr.error('Registration failed. Please try again.');
+          console.error('Error:', error);
+        }
+      });
+    }
+    
+  </script>
 </body>
 </html>
