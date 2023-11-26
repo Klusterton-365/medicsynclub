@@ -167,7 +167,7 @@
     <script>
         const userId = window.localStorage.getItem('token');
         if(userId == null || userId == "undefined"){
-            window.location = "login";
+            window.location = "login.html";
         }else{
             $.ajax({
                 type: 'GET',
@@ -175,7 +175,7 @@
                 success: function(response) {
                     console.log(response);
                     if (response.status == false) {
-                        window.Location = "login";
+                        window.Location = "login.html";
                     } else {
                         const userObject = response.data;
                         sessionStorage.setItem('user', JSON.stringify(userObject));
