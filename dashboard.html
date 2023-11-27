@@ -10,10 +10,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap" 
     rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./style.css">    
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>    
  </head>
 <body class="h-full">
-    <div class="min-h-full">
+    <div class="min-h-full relative">
+        <div class="loader h-screen absolute w-full bg-slate-200 flex items-center justify-center z-20" id="loader">
+            <div class="loading">
+                <svg height="48px" width="64px">
+                    <polyline id="back" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+                  <polyline id="front" points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24"></polyline>
+                </svg>
+              </div>
+        </div>
+
         <nav class="bg-green-500">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
@@ -26,13 +36,13 @@
                         <a href="#" class="bg-green-700 text-white rounded-md px-3 py-2 text-sm font-medium" 
                         aria-current="page">Dashboard</a>
                         <a href="#" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
-                        py-2 text-sm font-medium">Team</a>
+                        py-2 text-sm font-medium">Medication</a>
                         <a href="#" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
-                        py-2 text-sm font-medium">Projects</a>
+                        py-2 text-sm font-medium">Records</a>
                         <a href="#" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
-                        py-2 text-sm font-medium">Calendar</a>
+                        py-2 text-sm font-medium">Notes</a>
                         <a href="#" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
-                        py-2 text-sm font-medium">Reports</a>
+                        py-2 text-sm font-medium">Settings</a>
                     </div>
                 </div>
             </div>
@@ -55,7 +65,7 @@
                 
                 <div class="relative ml-3">
                     <div>
-                    <button type="button" class="relative flex max-w-xs items-center rounded-full 
+                    <button onclick="profileController()" type="button" class="relative flex max-w-xs items-center rounded-full 
                     bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white 
                     focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" 
                     aria-expanded="false" aria-haspopup="true">
@@ -67,8 +77,8 @@
     
                     
                     <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white 
-                    py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" 
-                    aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                    py-1 hidden md:hidden shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" 
+                    aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"  id="profilemenu">
                     
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 username" role="menuitem" 
                     tabindex="-1" id="user-menu-item-0" >Your Profile</a>
@@ -82,7 +92,7 @@
             </div>
             <div class="-mr-2 flex md:hidden">
                 
-                <button type="button" class="relative inline-flex items-center justify-center rounded-md 
+                <button onclick="mobMenuController()" type="button" class="relative inline-flex items-center justify-center rounded-md 
                 bg-white p-2 text-gray-400 hover:bg-gray-300 hover:text-white focus:outline-none 
                 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" 
                 aria-controls="mobile-menu" aria-expanded="false">
@@ -102,7 +112,7 @@
         </div>
     
         
-        <div class="md:hidden" id="mobile-menu">
+        <div class="md:hidden hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             
             <a href="#" class="bg-green-700 text-white block rounded-md px-3 py-2 text-base font-medium" 
@@ -156,8 +166,179 @@
         </div>
         </header>
         <main>
-            <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+            <div class="w-11/12 md:w-full mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                 <!-- Your content -->
+                <section class="w-full">
+                    <div class="w-full mx-auto">
+
+                        <div id="default-carousel" class="relative" data-carousel="static">
+                         
+                            <div class="overflow-hidden relative h-56 rounded-lg sm:h-64 xl:h-80 2xl:h-96">
+                               
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <span class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl ">Primer Slide</span>
+                                    <img src="./img/img1.jpg" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="...">
+                                </div>
+                               
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src="./img/img2.jpg" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="...">
+                                </div>
+                               
+                                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                                    <img src="./img/img3.jpg" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="...">
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="flex absolute bottom-5 left-1/2 z-30 space-x-3 -translate-x-1/2">
+                                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+                                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+                                <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+                            </div>
+                           
+                            <button type="button" class="flex absolute top-0 left-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none" data-carousel-prev>
+                                <span class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
+                                    <svg class="w-5 h-5 text-white sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                    <span class="hidden">Anterior</span>
+                                </span>
+                            </button>
+                            <button type="button" class="flex absolute top-0 right-0 z-30 justify-center items-center px-4 h-full cursor-pointer group focus:outline-none" data-carousel-next>
+                                <span class="inline-flex justify-center items-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 0 group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
+                                    <svg class="w-5 h-5 text-white sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                    <span class="hidden">Siguiente</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full my-12">
+                    <div class="w-full">
+                        <div>
+                            <h1 class="font-bold text-xl">Today</h1>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 my-6 gap-5">
+                            <div class="bg-gray-200 p-3 rounded-lg flex justify-between items-center">
+                                <div class="flex flex-col">
+                                    <span>
+                                        <h1 class="font-bold">Paracetamol, 500mg</h1>
+                                        <p class="leading-relaxed">Morning</p>
+                                    </span>
+                                    <h1 class="font-bold">Next dose in <span>17hrs</span></h1>
+                                </div>
+                                <div>
+                                    <button class="py-2 px-4 bg-green-500 hover:bg-green-600 text-white 
+                                    rounded-lg">Take Now</button>
+                                </div>
+                            </div>
+                            <div class="bg-gray-200 p-3 rounded-lg flex justify-between items-center">
+                                <div class="flex flex-col">
+                                    <span>
+                                        <h1 class="font-bold">Paracetamol, 500mg</h1>
+                                        <p class="leading-relaxed">Morning</p>
+                                    </span>
+                                    <h1 class="font-bold">Next dose in <span>17hrs</span></h1>
+                                </div>
+                                <div>
+                                    <button class="py-2 px-4 bg-green-500 hover:bg-green-600 text-white 
+                                    rounded-lg">Take Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full">
+                    <div class="w-full">
+                        <div class="w-full">
+                            <div>
+                                <h1 class="font-bold text-xl">My Activity</h1>
+                            </div>
+                            <div class="rounded-lg my-6 flex justify-between items-center p-4 bg-gray-200">
+                                <div class="flex flex-col gap-6">
+                                    <span class="font-bold">Your Plan for Today</span>
+                                    <span class="font-bold">2 of 3 Completed</span>
+                                </div>
+                                <div>
+                                    <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 
+                                    rounded-lg">View</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="w-full">
+                    <div class="w-full">
+                        <div>
+                            <h1 class="font-bold text-xl">Medication History</h1>
+                        </div>
+                        <div class="bg-gray-200 rounded-lg p-4 my-6">
+                            <div>
+                                <h1 class="font-bold text-lg">Last 7 days</h1>
+                                <div class="flex flex-col gap-2 my-4">
+                                    <div class="flex flex-col gap-1">
+                                        <span>From 10th Nov</span>
+                                        <div class="flex gap-1">
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span>From 10th Nov</span>
+                                        <div class="flex gap-1">
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span>From 10th Nov</span>
+                                        <div class="flex gap-1">
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <span>From 10th Nov</span>
+                                        <div class="flex gap-1">
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-red-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                            <div class="p-2 bg-green-500 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     </div>
@@ -195,6 +376,33 @@
         const emailDisplay = document.querySelectorAll('.email').forEach(element => {
             element.innerHTML = `${user.email}`;
         });
+    </script>
+
+    <script>
+        let profileMenu = document.getElementById("profilemenu");
+        let mobMenu = document.getElementById("mobile-menu");
+
+        let isOpenedNow = false;
+        let isMobOpen = false;
+        function profileController() {
+            if(isOpenedNow === false) {
+                profileMenu.classList.remove("md:hidden");
+                profileMenu.classList.add("md:block");
+                isOpenedNow = true;
+            } else {
+                profileMenu.classList.add("md:hidden");
+                isOpenedNow = false;
+            }
+        }
+        function mobMenuController() {
+            if(isMobOpen === false) {
+                mobMenu.classList.remove("hidden");
+                isMobOpen = true;
+            } else {
+                mobMenu.classList.add("hidden");
+                isMobOpen = false;
+            }
+        }
     </script>
 </body>
 </html>

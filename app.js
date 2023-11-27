@@ -14,6 +14,7 @@ function menuController() {
 	}
 }
 
+
 function logout() {
 	toastr.info('Are you sure you want to logout?', 'Confirmation', {
 	  closeButton: true,
