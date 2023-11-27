@@ -16,6 +16,10 @@ function loadContents(){
 	document.querySelectorAll('.email').forEach(element => {
 		element.innerHTML = `${user.email}`;
 	});
+	document.querySelector('#username').value = user.username;
+	document.querySelector('#email').value = user.email;
+	document.querySelector('#fullname').value = user.fullname;
+	document.querySelector('#diagnosis').value = user.diagnosis;
 }
 
 let menu = document.getElementById("menu");
