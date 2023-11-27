@@ -182,11 +182,11 @@
                         </div>
 
                         <div class="w-full">
-                            <form action="" method="" id="medication" name="medication" class="w-full flex flex-col gap-5">
+                            <form action="" method="" id="medication" name="medication" class="w-full flex flex-col gap-5" onsubmit="addMedic(event)">
                                 <div class="flex flex-col md:flex-row gap-5 w-full">
                                     <div class="flex flex-col gap-2 w-full">
                                         <label>Medication Name</label>
-                                        <input id="med-name" name="med-name" type="text" required 
+                                        <input id="med_name" name="med-name" type="text" required 
                                         placeholder="e.g Glucophage 500mg"
                                         class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
                                         ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
@@ -203,7 +203,7 @@
                                 </div>
                                 <div class="flex flex-col md:flex-row gap-5 w-full">
                                     <div class="flex flex-col gap-2 w-full">
-                                        <label>Reoccurance</label>
+                                        <label>Times per day</label>
                                         <input id="reoccurance" name="reoccurance" type="number" required 
                                         placeholder="e.g Number of times"
                                         class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
@@ -221,16 +221,16 @@
                                 </div>
                                 <div class="flex flex-col md:flex-row gap-5 w-full">
                                     <div class="flex flex-col gap-2 w-full">
-                                        <label>Set Time</label>
-                                        <input id="med-time" name="med-time" type="time" required 
-                                        placeholder="e.g Number of times"
+                                        <label>Days Interval</label>
+                                        <input id="med-time" name="med-time" type="number" required 
+                                        placeholder="e.g 1 if daily 2 if every 2 days"
                                         class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
                                         ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
                                         focus:ring-green-600 sm:text-sm sm:leading-6">
                                     </div>
                                     <div class="flex flex-col gap-2 w-full">
                                         <label>Special Instructions</label>
-                                        <input id="spe-ins" name="spe-ins" type="text" required
+                                        <input id="spe-ins" name="spe-ins" type="text" 
                                         placeholder="Special Instructions" 
                                         class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
                                         ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
@@ -249,8 +249,9 @@
             </section>
         </main>
     </div>
-    
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./app.js"></script>
     <script>
         let profileMenu = document.getElementById("profilemenu");
         let mobMenu = document.getElementById("mobile-menu");
@@ -276,7 +277,82 @@
                 isMobOpen = false;
             }
         }
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        const usernameDisplay = document.querySelectorAll('.username').forEach(element => {
+            element.innerHTML = `${user.username}`;
+        });
+        const fullnameDisplay = document.querySelectorAll('.fullname').forEach(element => {
+            element.innerHTML = user.fullname ?? "Update your details";
+        });
+        const emailDisplay = document.querySelectorAll('.email').forEach(element => {
+            element.innerHTML = `${user.email}`;
+        });
     </script>
-    <script src="./app.js"></script>
+    <script>
+        function dateDiffInDays(a, b) {
+            const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+            const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+        
+            return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
+        }
+        function addMedic(event) {
+            
+            event.preventDefault();
+
+            if('serviceWorker' in navigator){
+                    Notification.requestPermission((perm) => {
+                        if(perm === 'granted'){
+                            navigator.serviceWorker.register("sw.js");
+                            navigator.serviceWorker.ready.then((sw) => {
+                                sw.pushManager.subscribe({
+                                    userVisibleOnly : true,
+                                    applicationServerKey : "BElDDOVWzeYprpkbCHG3aVc5sZ_lbfLZFaqbkyn5C-yB8NX2F-WoxVVYCaVoRgIj-OFgM6LGOFqUKFrHs_ESSvk"
+                                }).then((subscription) => {
+                                    console.log(JSON.stringify(subscription));
+                                });
+                            });
+                        }
+                    })
+            }else{
+                alert("Your browser does not support service worker for notification try another browser")
+            }
+
+            const currentDate = new Date();
+
+            // Get the selected end date from the form
+            const endDateInput = document.getElementById('end-date');
+            const endDate = new Date(endDateInput.value);
+
+            // Calculate the difference in days
+            const totalDays = dateDiffInDays(currentDate, endDate);
+          
+            // Create FormData object
+            const formData = new FormData();
+            formData.append('user_id', window.localStorage.getItem('token'));
+            formData.append('medication_name', event.target[0].value);
+            formData.append('dosage', event.target[1].value);
+            formData.append('reminders_per_day', event.target[2].value);
+            formData.append('days_interval', event.target[4].value);
+            formData.append('end_date', event.target[3].value);
+            formData.append('special', event.target[5].value);
+            formData.append('total_days', totalDays);
+          
+            $.ajax({
+              type: 'POST',
+              url: 'https://klusterthon-365-api.000webhostapp.com/medication',
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function(response) {
+                console.log(response);
+              },
+              error: function(error) {
+                toastr.error('Registration failed. Please try again.');
+                console.error('Error:', error);
+              }
+            });
+          }
+          
+    </script>
 </body>
 </html>

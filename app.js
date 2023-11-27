@@ -44,16 +44,3 @@ function logout() {
 	  }
 	});
 }
-
-document.addEventListener('DOMContentLoaded',()=>{
-	const user = JSON.parse(sessionStorage.getItem('user'));
-        const usernameDisplay = document.querySelectorAll('.username').forEach(element => {
-            element.innerHTML = `${user.username}`;
-        });
-        const fullnameDisplay = document.querySelectorAll('.fullname').forEach(element => {
-            element.innerHTML = user.fullname ?? "Update your details";
-        });
-        const emailDisplay = document.querySelectorAll('.email').forEach(element => {
-            element.innerHTML = `${user.email}`;
-        });
-})
