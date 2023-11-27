@@ -157,7 +157,7 @@
     
             <header class="bg-white shadow">
                 <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Records</h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-gray-900" onclick="downloadAsPDF()">Records</h1>
                 </div>
             </header>
 
@@ -168,28 +168,8 @@
                             <div>
                                 <h1 class="font-bold text-xl">Medications</h1>
                             </div>
-                            <div class="flex flex-col gap-8 my-6">
-                                <div class="rounded-lg p-4 flex flex-col gap-2 bg-gray-200">
-                                    <h1 class="font-bold">Paracetamol, 3mg</h1>
-                                    <span class="flex flex-col gap-1">
-                                        <span>6:00AM, 2:00PM</span>
-                                        <span>6:00PM</span>
-                                    </span>
-                                </div>
-                                <div class="rounded-lg p-4 flex flex-col gap-2 bg-gray-200">
-                                    <h1 class="font-bold">Paracetamol, 3mg</h1>
-                                    <span class="flex flex-col gap-1">
-                                        <span>6:00AM, 2:00PM</span>
-                                        <span>6:00PM</span>
-                                    </span>
-                                </div>
-                                <div class="rounded-lg p-4 flex flex-col gap-2 bg-gray-200">
-                                    <h1 class="font-bold">Paracetamol, 3mg</h1>
-                                    <span class="flex flex-col gap-1">
-                                        <span>6:00AM, 2:00PM</span>
-                                        <span>6:00PM</span>
-                                    </span>
-                                </div>
+                            <div class="flex flex-col gap-8 my-6" id="medList" >
+                                
                             </div>
                         </div>
 
@@ -197,40 +177,8 @@
                             <div>
                                 <h1 class="text-xl font-bold">Notes</h1>
                             </div>
-                            <div class="flex flex-col my-6 gap-8">
-                                <div class="rounded-lg p-4 flex items-center justify-between bg-gray-200">
-                                    <div class="flex flex-col gap-2">
-                                        <h1 class="font-bold">Had a heavy headache after taking Paracetamol</h1>
-                                        <span class="">
-                                            <span>Mon, Oct 10, 6:45PM</span>
-                                        </span> 
-                                    </div>
-                                    <div>
-                                        <div class="p-3 bg-yellow-500 rounded-full"></div>
-                                    </div>
-                                </div>
-                                <div class="rounded-lg p-4 flex items-center justify-between bg-gray-200">
-                                    <div class="flex flex-col gap-2">
-                                        <h1 class="font-bold">I am feeling Nauseous</h1>
-                                        <span class="">
-                                            <span>Mon, Oct 10, 6:45PM</span>
-                                        </span> 
-                                    </div>
-                                    <div>
-                                        <div class="p-3 bg-blue-500 rounded-full"></div>
-                                    </div>
-                                </div>
-                                <div class="rounded-lg p-4 flex items-center justify-between bg-gray-200">
-                                    <div class="flex flex-col gap-2">
-                                        <h1 class="font-bold">Been feeling Moody</h1>
-                                        <span class="">
-                                            <span>Mon, Oct 10, 6:45PM</span>
-                                        </span> 
-                                    </div>
-                                    <div>
-                                        <div class="p-3 bg-indigo-500 rounded-full"></div>
-                                    </div>
-                                </div>
+                            <div class="flex flex-col my-6 gap-8" id="noteList">
+                                
                             </div>
                         </div>
 
@@ -310,6 +258,70 @@
                 </section>
             </main>
     </div>
-<script src="./app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script src="./app.js"></script>
+<script>
+    loadContents();
+    loadMedicationList();
+    loadNoteList();
+    function downloadAsPDF() {
+        // Select the entire body
+        const element = document.body;
+
+        // Set options for html2pdf
+        const options = {
+            margin: 10,
+            filename: 'record.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        // Use html2pdf library to generate PDF
+        html2pdf(element, options);
+    }
+    function loadNoteList(){
+        const userId = window.localStorage.getItem('token');
+        $.ajax({
+            type: 'GET',
+            url: `https://klusterthon-365-api.000webhostapp.com/note/${userId}`,
+            success: function(response) {
+                if (response.status == false) {
+                    document.querySelector('#noteList').innerHTML += "<span>No Notes added yet! Add to get started</span>";
+                } else {
+                    const data = response.data;
+                    data.forEach(item => {
+                        const timestamp = item.created_at;
+                        const date = new Date(timestamp);
+                        const options = { 
+                            weekday: 'long', 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric', 
+                            hour: 'numeric', 
+                            minute: 'numeric' 
+                        };
+
+                        // Format the date
+                        const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+
+                        document.querySelector('#noteList').innerHTML +=  `<div class="rounded-lg p-4 flex flex-col gap-2 bg-gray-200">
+                        <h1 class="font-bold">${item.title}</h1>
+                        <span class="flex flex-col gap-1">
+                            <small class='font-light'><i> ${formattedDate} </i></small>
+                        </span>
+                    </div>`
+                    });
+                }
+            },
+            error: function(error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+</script>
 </body>
 </html>
