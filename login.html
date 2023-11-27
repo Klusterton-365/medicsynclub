@@ -112,6 +112,22 @@
           } else {
             window.localStorage.setItem('token',response.userId);
             toastr.success(response.message);
+            const userId = window.localStorage.getItem('token');
+            $.ajax({
+              type: 'GET',
+              url: `https://klusterthon-365-api.000webhostapp.com/user/${userId}`,
+              success: function(response) {
+                  if (response.status == false) {
+                      window.Location = "login.html";
+                  } else {
+                      const userObject = response.data;
+                      sessionStorage.setItem('user', JSON.stringify(userObject));
+                  }
+              },
+              error: function(error) {
+                  console.error('Error:', error);
+              }
+          });
             setTimeout(function(){
               window.location = "dashboard.html";
             },2000)

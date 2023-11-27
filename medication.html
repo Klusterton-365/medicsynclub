@@ -164,9 +164,8 @@
         <main>
             <section class="w-11/12 md:w-full mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                 <section class="w-full" id="prev-display">
-                    <div class="bg-green-200 p-4 flex flex-col gap-2">
+                    <div class="bg-green-200 p-4 flex flex-col gap-2" id="medList">
                         <span>Hey <span class="username"></span></span>
-                        <span>No medications added yet! Add to get started</span>
                     </div>
                     <div class="w-full flex justify-center items-center my-6">
                         <button id="next-btn" class="py-2 px-4 text-white bg-green-500 hover:bg-green-600 rounded-lg font-medium">
@@ -253,42 +252,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./app.js"></script>
     <script>
-        let profileMenu = document.getElementById("profilemenu");
-        let mobMenu = document.getElementById("mobile-menu");
-
-        let isOpenedNow = false;
-        let isMobOpen = false;
-        function profileController() {
-            if(isOpenedNow === false) {
-                profileMenu.classList.remove("md:hidden");
-                profileMenu.classList.add("md:block");
-                isOpenedNow = true;
-            } else {
-                profileMenu.classList.add("md:hidden");
-                isOpenedNow = false;
-            }
-        }
-        function mobMenuController() {
-            if(isMobOpen === false) {
-                mobMenu.classList.remove("hidden");
-                isMobOpen = true;
-            } else {
-                mobMenu.classList.add("hidden");
-                isMobOpen = false;
-            }
-        }
-        const user = JSON.parse(sessionStorage.getItem('user'));
-        const usernameDisplay = document.querySelectorAll('.username').forEach(element => {
-            element.innerHTML = `${user.username}`;
-        });
-        const fullnameDisplay = document.querySelectorAll('.fullname').forEach(element => {
-            element.innerHTML = user.fullname ?? "Update your details";
-        });
-        const emailDisplay = document.querySelectorAll('.email').forEach(element => {
-            element.innerHTML = `${user.email}`;
-        });
-    </script>
-    <script>
+        loadContents();
+        loadMedicationList();
         function dateDiffInDays(a, b) {
             const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
             const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
@@ -308,9 +273,29 @@
                                     userVisibleOnly : true,
                                     applicationServerKey : "BElDDOVWzeYprpkbCHG3aVc5sZ_lbfLZFaqbkyn5C-yB8NX2F-WoxVVYCaVoRgIj-OFgM6LGOFqUKFrHs_ESSvk"
                                 }).then((subscription) => {
-                                    console.log(JSON.stringify(subscription));
+                                    const subKey = JSON.stringify(subscription);
+                                    const formData = new FormData();
+                                    formData.append('userId', window.localStorage.getItem('token'));
+                                    formData.append('subscription', subKey);
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: 'https://klusterthon-365-api.000webhostapp.com/user/subscribe',
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
+                                        success: function(response) {
+                                          console.log(response);
+                                        },
+                                        error: function(error) {
+                                          toastr.error('Registration failed. Please try again.');
+                                          console.error('Error:', error);
+                                        }
+                                      });
                                 });
                             });
+                        }else{
+                            toastr.error("Notification should be allowed to enable us send you reminders");
+                            return;
                         }
                     })
             }else{

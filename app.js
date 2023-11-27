@@ -2,6 +2,22 @@ window.addEventListener('load', function() {
 	const loader = document.getElementById('loader').style.display = "none";
 }); 
 
+function loadContents(){
+	const user = JSON.parse(sessionStorage.getItem('user'));
+	if (! user) {
+		window.location = "login.html"
+	}
+	document.querySelectorAll('.username').forEach(element => {
+		element.innerHTML = `${user.username}`;
+	});
+	document.querySelectorAll('.fullname').forEach(element => {
+		element.innerHTML = user.fullname ?? "Update your details";
+	});
+	document.querySelectorAll('.email').forEach(element => {
+		element.innerHTML = `${user.email}`;
+	});
+}
+
 let menu = document.getElementById("menu");
 let isOpened = false;
 function menuController() {
@@ -67,5 +83,32 @@ function logout() {
 		  window.location = "dashboard";
 		}
 	  }
+	});
+}
+
+function loadMedicationList(){
+	const userId = window.localStorage.getItem('token');
+	$.ajax({
+		type: 'GET',
+		url: `https://klusterthon-365-api.000webhostapp.com/medication/${userId}`,
+		success: function(response) {
+			if (response.status == false) {
+				document.querySelector('#medList').innerHTML += "<span>No medications added yet! Add to get started</span>";
+			} else {
+				const data = response.data;
+				data.forEach(item => {
+					document.querySelector('#medList').innerHTML +=  `<div class="rounded-lg p-4 flex flex-col gap-2 bg-gray-200">
+					<h1 class="font-bold">${item.medication_name}</h1>
+					<span class="flex flex-col gap-1">
+						<span>${item.dosage ?? 0} * ${item.reminders_per_day ?? 0} times every ${item.days_interval ?? 0} days, for ${item.total_days ?? 0} days </span>
+						<span class = 'font-bold'>Special Instructions : ${item.special ?? "none"}</span>
+					</span>
+				</div>`
+				});
+			}
+		},
+		error: function(error) {
+			console.error('Error:', error);
+		}
 	});
 }

@@ -351,63 +351,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./app.js"></script>
     <script>
-        const userId = window.localStorage.getItem('token');
-        if(userId == null || userId == "undefined"){
-            window.location = "login.html";
-        }else{
-            $.ajax({
-                type: 'GET',
-                url: `https://klusterthon-365-api.000webhostapp.com/user/${userId}`,
-                success: function(response) {
-                    if (response.status == false) {
-                        window.Location = "login.html";
-                    } else {
-                        const userObject = response.data;
-                        sessionStorage.setItem('user', JSON.stringify(userObject));
-                    }
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
-        const user = JSON.parse(sessionStorage.getItem('user'));
-        const usernameDisplay = document.querySelectorAll('.username').forEach(element => {
-            element.innerHTML = `${user.username}`;
-        });
-        const fullnameDisplay = document.querySelectorAll('.fullname').forEach(element => {
-            element.innerHTML = user.fullname ?? "Update your details";
-        });
-        const emailDisplay = document.querySelectorAll('.email').forEach(element => {
-            element.innerHTML = `${user.email}`;
-        });
-    </script>
-
-    <script>
-        let profileMenu = document.getElementById("profilemenu");
-        let mobMenu = document.getElementById("mobile-menu");
-
-        let isOpenedNow = false;
-        let isMobOpen = false;
-        function profileController() {
-            if(isOpenedNow === false) {
-                profileMenu.classList.remove("md:hidden");
-                profileMenu.classList.add("md:block");
-                isOpenedNow = true;
-            } else {
-                profileMenu.classList.add("md:hidden");
-                isOpenedNow = false;
-            }
-        }
-        function mobMenuController() {
-            if(isMobOpen === false) {
-                mobMenu.classList.remove("hidden");
-                isMobOpen = true;
-            } else {
-                mobMenu.classList.add("hidden");
-                isMobOpen = false;
-            }
-        }
+        loadContents();
     </script>
 </body>
 </html>
