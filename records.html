@@ -154,10 +154,18 @@
                 </div>
             </div>
         </nav>
-    
+        <div id="content">
             <header class="bg-white shadow">
-                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                    <h1 class="text-3xl font-bold tracking-tight text-gray-900" onclick="downloadAsPDF()">Records</h1>
+                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between">
+                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Records</h1>
+                    <span class="flex gap-5 items-center">
+                        <a href="./qrcode.html" class="h-8 w-8">
+                            <img src="./img/scan.gif" class="w-full h-full">
+                        </a>
+                        <div class="h-8 w-8 hover:cursor-pointer" onclick="downloadPDF()">
+                            <img src="./img/download.gif" class="w-full h-full">
+                        </div>
+                    </span>
                 </div>
             </header>
 
@@ -257,6 +265,7 @@
                     </div>
                 </section>
             </main>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -266,22 +275,7 @@
     loadContents();
     loadMedicationList();
     loadNoteList();
-    function downloadAsPDF() {
-        // Select the entire body
-        const element = document.body;
-
-        // Set options for html2pdf
-        const options = {
-            margin: 10,
-            filename: 'record.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        // Use html2pdf library to generate PDF
-        html2pdf(element, options);
-    }
+    
     function loadNoteList(){
         const userId = window.localStorage.getItem('token');
         $.ajax({
@@ -323,5 +317,12 @@
     }
 
 </script>
+<script>
+    function downloadPDF() {
+      var element = document.getElementById('content');
+
+      html2pdf(element);
+    }
+  </script>
 </body>
 </html>
