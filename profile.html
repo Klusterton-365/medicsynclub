@@ -179,7 +179,7 @@
                     <div class="my-6">
                         <h1 class="text-xl font-bold">Profile Details</h1>
                     </div>
-                    <form class="flex flex-col gap-5">
+                    <form class="flex flex-col gap-5" onsubmit="update(event)">
                         <div class="flex flex-col md:flex-row gap-5">
                             <div class="w-full flex flex-col gap-2">
                                 <label>Username:</label>
@@ -198,15 +198,15 @@
                         </div>
                         <div class="flex flex-col md:flex-row gap-5">
                             <div class="w-full flex flex-col gap-2">
-                                <label>Phone Number:</label>
-                                <input id="phoneno" name="phoneno" type="number" autocomplete="phone" required 
+                                <label>Fullname:</label>
+                                <input id="fullname" name="phoneno" type="text" autocomplete="phone" required 
                                 class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
                                 ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
                                 focus:ring-green-600 sm:text-sm sm:leading-6">
                             </div>
                             <div class="w-full flex flex-col gap-2">
                                 <label>Medical Condition:</label>
-                                <input id="med_con" name="med_con" type="text" autocomplete="med_con" required 
+                                <input id="diagnosis" name="med_con" type="text" autocomplete="med_con" required 
                                 class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
                                 ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
                                 focus:ring-green-600 sm:text-sm sm:leading-6">
@@ -226,6 +226,40 @@
     <script src="./app.js"></script>
     <script>
         loadContents();
+       
+        function update(event) {
+            event.preventDefault();
+            const userId = window.localStorage.getItem('token');
+            // Create FormData object
+            const formData = new FormData();
+            formData.append('email', event.target[1].value);
+            formData.append('username', event.target[0].value);
+            formData.append('fullname', event.target[2].value);
+            formData.append('diagnosis', event.target[3].value);
+          
+            $.ajax({
+              type: 'POST',
+              url: `https://klusterthon-365-api.000webhostapp.com/user/${userId}`,
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function(response) {
+                if (response.status == false) {
+                  toastr.warning(response.message);
+                } else {
+                  window.sessionStorage.setItem('user',response.data);
+                  toastr.success("Update Success");
+                  
+                }
+              },
+              error: function(error) {
+                toastr.error('Registration failed. Please try again.');
+                console.error('Error:', error);
+              }
+            });
+          }
+          
+
     </script>
 </body>
 </html>
