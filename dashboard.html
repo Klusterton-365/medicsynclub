@@ -29,20 +29,18 @@
             <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="flex-shrink-0">
-                    <a href="#" class="font-bold text-xl text-white">Medicsyn Club</a>
+                    <a href="./dashboard.html" class="font-bold text-xl text-white">Medicsyn Club</a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#" class="bg-green-700 text-white rounded-md px-3 py-2 text-sm font-medium" 
+                        <a href="./dashboard.html" class="bg-green-700 text-white rounded-md px-3 py-2 text-sm font-medium" 
                         aria-current="page">Dashboard</a>
-                        <a href="#" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
+                        <a href="./medication.html" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
                         py-2 text-sm font-medium">Medication</a>
                         <a href="#" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
                         py-2 text-sm font-medium">Records</a>
                         <a href="#" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
                         py-2 text-sm font-medium">Notes</a>
-                        <a href="#" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
-                        py-2 text-sm font-medium">Settings</a>
                     </div>
                 </div>
             </div>
@@ -115,16 +113,14 @@
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             
-            <a href="#" class="bg-green-700 text-white block rounded-md px-3 py-2 text-base font-medium" 
+            <a href="./dashboard.html" class="bg-green-700 text-white block rounded-md px-3 py-2 text-base font-medium" 
             aria-current="page">Dashboard</a>
+            <a href="./medication.html" class="text-white hover:bg-green-400 block rounded-md px-3 
+            py-2 text-base font-medium">Medication</a>
             <a href="#" class="text-white hover:bg-green-400 block rounded-md px-3 
-            py-2 text-base font-medium">Team</a>
+            py-2 text-base font-medium">Records</a>
             <a href="#" class="text-white hover:bg-green-400 block rounded-md px-3 
-            py-2 text-base font-medium">Projects</a>
-            <a href="#" class="text-white hover:bg-green-400 block rounded-md px-3 
-            py-2 text-base font-medium">Calendar</a>
-            <a href="#" class="text-white hover:bg-green-400 block rounded-md px-3 
-            py-2 text-base font-medium">Reports</a>
+            py-2 text-base font-medium">Notes</a>
             </div>
             <div class="border-t border-black pb-3 pt-4">
             <div class="flex items-center px-5">
@@ -178,14 +174,23 @@
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                     <span class="absolute top-1/2 left-1/2 text-2xl font-semibold text-white -translate-x-1/2 -translate-y-1/2 sm:text-3xl ">Primer Slide</span>
                                     <img src="./img/img1.jpg" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="...">
+                                    <div class="p-4 absolute top-[20%] md:top-[35%] font-bold text-white text-base md:text-2xl text-center">
+                                        <h1 class="px-12 md:px-32">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque, quaerat voluptatum amet odit explicabo modi deleniti vitae, veritatis fuga corrupti accusantium perspiciatis corporis!</h1>
+                                    </div>
                                 </div>
                                
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                     <img src="./img/img2.jpg" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="...">
+                                    <div class="p-4 absolute top-[20%] md:top-[35%] font-bold text-white text-base md:text-2xl text-center">
+                                        <h1 class="px-12 md:px-32">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque, quaerat voluptatum amet odit explicabo modi deleniti vitae, veritatis fuga corrupti accusantium perspiciatis corporis!</h1>
+                                    </div>
                                 </div>
                                
                                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                     <img src="./img/img3.jpg" class="block absolute top-1/2 left-1/2 w-full -translate-x-1/2 -translate-y-1/2" alt="...">
+                                    <div class="p-4 absolute top-[20%] md:top-[35%] font-bold text-white text-base md:text-2xl text-center">
+                                        <h1 class="px-12 md:px-32">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque, quaerat voluptatum amet odit explicabo modi deleniti vitae, veritatis fuga corrupti accusantium perspiciatis corporis!</h1>
+                                    </div>
                                 </div>
                             </div>
                             
@@ -366,16 +371,7 @@
                 }
             });
         }
-        const user = JSON.parse(sessionStorage.getItem('user'));
-        const usernameDisplay = document.querySelectorAll('.username').forEach(element => {
-            element.innerHTML = `${user.username}`;
-        });
-        const fullnameDisplay = document.querySelectorAll('.fullname').forEach(element => {
-            element.innerHTML = user.fullname ?? "Update your details";
-        });
-        const emailDisplay = document.querySelectorAll('.email').forEach(element => {
-            element.innerHTML = `${user.email}`;
-        });
+        
     </script>
 
     <script>

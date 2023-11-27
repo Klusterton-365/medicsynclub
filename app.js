@@ -14,6 +14,16 @@ function menuController() {
 	}
 }
 
+let prevDisplay = document.getElementById('prev-display');
+let nextDisplay = document.getElementById('next-display');
+let nextBtn = document.getElementById('next-btn');
+
+function showNext(elOne, elTwo) {
+	elOne.style.display = "none";
+	elTwo.style.display = "block";
+}
+
+nextBtn.addEventListener('click', () => showNext(prevDisplay, nextDisplay));
 
 function logout() {
 	toastr.info('Are you sure you want to logout?', 'Confirmation', {
@@ -34,3 +44,16 @@ function logout() {
 	  }
 	});
 }
+
+document.addEventListener('DOMContentLoaded',()=>{
+	const user = JSON.parse(sessionStorage.getItem('user'));
+        const usernameDisplay = document.querySelectorAll('.username').forEach(element => {
+            element.innerHTML = `${user.username}`;
+        });
+        const fullnameDisplay = document.querySelectorAll('.fullname').forEach(element => {
+            element.innerHTML = user.fullname ?? "Update your details";
+        });
+        const emailDisplay = document.querySelectorAll('.email').forEach(element => {
+            element.innerHTML = `${user.email}`;
+        });
+})
