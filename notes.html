@@ -35,12 +35,12 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="./dashboard.html" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
                         py-2 text-sm font-medium">Dashboard</a>
-                        <a href="./medication.html" class="bg-green-700 text-white rounded-md px-3 py-2 text-sm font-medium"
-                        aria-current="page">Medication</a>
+                        <a href="./medication.html" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
+                        py-2 text-sm font-medium"
+                        >Medication</a>
                         <a href="./records.html" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
                         py-2 text-sm font-medium">Records</a>
-                        <a href="./notes.html" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
-                        py-2 text-sm font-medium">Notes</a>
+                        <a href="./notes.html" class="bg-green-700 text-white rounded-md px-3 py-2 text-sm font-medium">Notes</a>
                     </div>
                 </div>
             </div>
@@ -158,13 +158,13 @@
 
         <header class="bg-white shadow">
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Medication</h1>
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Notes</h1>
             </div>
         </header>
         <main>
             <section class="w-11/12 md:w-full mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                 <section class="w-full" id="prev-display">
-                    <div class="bg-green-200 p-4 flex flex-col gap-2" id="medList">
+                    <div class="bg-green-200 p-4 flex flex-col gap-2" id="noteList">
                         <span>Hey <span class="username"></span></span>
                     </div>
                     <div class="w-full flex justify-center items-center my-6">
@@ -177,69 +177,25 @@
                 <section class="w-full" style="display: none;" id="next-display">
                     <div class="w-full">
                         <div class="w-full mb-6">
-                            <h1 class="font-bold text-xl">Add Medication</h1>
+                            <h1 class="font-bold text-xl">Add Note</h1>
                         </div>
 
                         <div class="w-full">
-                            <form action="" method="" id="medication" name="medication" class="w-full flex flex-col gap-5" onsubmit="addMedic(event)">
+                            <form action="" method="" id="medication" name="medication" class="w-full flex flex-col gap-5" onsubmit="addNote(event)">
                                 <div class="flex flex-col md:flex-row gap-5 w-full">
                                     <div class="flex flex-col gap-2 w-full">
-                                        <label>Medication Name</label>
+                                        <label>Note Title</label>
                                         <input id="med_name" name="med-name" type="text" required 
-                                        placeholder="e.g Glucophage 500mg"
+                                        placeholder=""
                                         class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
                                         ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
                                         focus:ring-green-600 sm:text-sm sm:leading-6">
                                     </div>
                                     <div class="flex flex-col gap-2 w-full">
-                                        <label>Dosage</label>
-                                        <input id="dosage" name="dosage" type="text" required
-                                        placeholder="1 Tab" 
-                                        class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
-                                        ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
-                                        focus:ring-green-600 sm:text-sm sm:leading-6">
+                                        <button type="submit" class="px-6 py-2 w-full md:w-20 bg-green-500 hover:bg-green-600 text-white rounded-lg">
+                                            Add
+                                        </button>
                                     </div>
-                                </div>
-                                <div class="flex flex-col md:flex-row gap-5 w-full">
-                                    <div class="flex flex-col gap-2 w-full">
-                                        <label>Times per day</label>
-                                        <input id="reoccurance" name="reoccurance" type="number" required 
-                                        placeholder="e.g Number of times"
-                                        class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
-                                        ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
-                                        focus:ring-green-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full">
-                                        <label>End Date</label>
-                                        <input id="end-date" name="end-date" type="date" required
-                                        placeholder="date" 
-                                        class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
-                                        ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
-                                        focus:ring-green-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                </div>
-                                <div class="flex flex-col md:flex-row gap-5 w-full">
-                                    <div class="flex flex-col gap-2 w-full">
-                                        <label>Days Interval</label>
-                                        <input id="med-time" name="med-time" type="number" required 
-                                        placeholder="e.g 1 if daily 2 if every 2 days"
-                                        class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
-                                        ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
-                                        focus:ring-green-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                    <div class="flex flex-col gap-2 w-full">
-                                        <label>Special Instructions</label>
-                                        <input id="spe-ins" name="spe-ins" type="text" 
-                                        placeholder="Special Instructions" 
-                                        class="block w-full rounded-lg border-0 py-3 text-black outline-none shadow-sm ring-1 
-                                        ring-inset ring-gray-300 placeholder:text-gray-400  pl-4 focus:ring-2 focus:ring-inset 
-                                        focus:ring-green-600 sm:text-sm sm:leading-6">
-                                    </div>
-                                </div>
-                                <div class="flex items-center md:justify-start justify-center w-full">
-                                    <button type="submit" class="px-6 py-2 w-full md:w-20 bg-green-500 hover:bg-green-600 text-white rounded-lg">
-                                        Add
-                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -253,97 +209,81 @@
     <script src="./app.js"></script>
     <script>
         loadContents();
-        loadMedicationList();
+        loadNoteList();
         function dateDiffInDays(a, b) {
             const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
             const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
         
             return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
         }
-        function addMedic(event) {
+        function addNote(event) {
             
             event.preventDefault();
 
-            if('serviceWorker' in navigator){
-                    Notification.requestPermission((perm) => {
-                        if(perm === 'granted'){
-                            navigator.serviceWorker.register("sw.js");
-                            navigator.serviceWorker.ready.then((sw) => {
-                                sw.pushManager.subscribe({
-                                    userVisibleOnly : true,
-                                    applicationServerKey : "BElDDOVWzeYprpkbCHG3aVc5sZ_lbfLZFaqbkyn5C-yB8NX2F-WoxVVYCaVoRgIj-OFgM6LGOFqUKFrHs_ESSvk"
-                                }).then((subscription) => {
-                                    const subKey = JSON.stringify(subscription);
-                                    const formData = new FormData();
-                                    formData.append('userId', window.localStorage.getItem('token'));
-                                    formData.append('subscription', subKey);
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: 'https://klusterthon-365-api.000webhostapp.com/user/subscribe',
-                                        data: formData,
-                                        processData: false,
-                                        contentType: false,
-                                        success: function(response) {
-                                          console.log(response);
-                                        },
-                                        error: function(error) {
-                                          toastr.error('Registration failed. Please try again.');
-                                          console.error('Error:', error);
-                                        }
-                                      });
-                                });
-                            });
-                        }else{
-                            toastr.error("Notification should be allowed to enable us send you reminders");
-                            return;
-                        }
-                    })
-            }else{
-                alert("Your browser does not support service worker for notification try another browser")
-            }
-
-            const currentDate = new Date();
-
-            // Get the selected end date from the form
-            const endDateInput = document.getElementById('end-date');
-            const endDate = new Date(endDateInput.value);
-
-            // Calculate the difference in days
-            const totalDays = dateDiffInDays(currentDate, endDate);
-          if(totalDays < 1){
-            toastr.warning(`End date must be greater than today`);
-            return;
-          }
+          
             // Create FormData object
             const formData = new FormData();
             formData.append('user_id', window.localStorage.getItem('token'));
-            formData.append('medication_name', event.target[0].value);
-            formData.append('dosage', event.target[1].value);
-            formData.append('reminders_per_day', event.target[2].value);
-            formData.append('days_interval', event.target[4].value);
-            formData.append('end_date', event.target[3].value);
-            formData.append('special', event.target[5].value);
-            formData.append('total_days', totalDays);
+            formData.append('title', event.target[0].value);
           
             $.ajax({
               type: 'POST',
-              url: 'https://klusterthon-365-api.000webhostapp.com/medication',
+              url: 'https://klusterthon-365-api.000webhostapp.com/note',
               data: formData,
               processData: false,
               contentType: false,
               success: function(response) {
-                toastr.success('Medication Added Successfully');
+                toastr.success('Note Added Successfully');
                 setTimeout(function(){
                     window.location = "";
                 },2000)
               },
               error: function(error) {
-                toastr.error('Registration failed. Please try again.');
+                toastr.error('failed. Please try again.');
                 console.error('Error:', error);
               }
             });
           }
           
+          function loadNoteList(){
+            const userId = window.localStorage.getItem('token');
+            $.ajax({
+                type: 'GET',
+                url: `https://klusterthon-365-api.000webhostapp.com/note/${userId}`,
+                success: function(response) {
+                    if (response.status == false) {
+                        document.querySelector('#noteList').innerHTML += "<span>No Notes added yet! Add to get started</span>";
+                    } else {
+                        const data = response.data;
+                        data.forEach(item => {
+                            const timestamp = item.created_at;
+                            const date = new Date(timestamp);
+                            const options = { 
+                                weekday: 'long', 
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric', 
+                                hour: 'numeric', 
+                                minute: 'numeric' 
+                            };
+
+                            // Format the date
+                            const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+
+                            document.querySelector('#noteList').innerHTML +=  `<div class="rounded-lg p-4 flex flex-col gap-2 bg-gray-200">
+                            <h1 class="font-bold">${item.title}</h1>
+                            <span class="flex flex-col gap-1">
+                                <small class='font-light'><i> ${formattedDate} </i></small>
+                            </span>
+                        </div>`
+                        });
+                    }
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
     </script>
 </body>
 </html>
