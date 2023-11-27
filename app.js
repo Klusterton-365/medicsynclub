@@ -14,6 +14,31 @@ function menuController() {
 	}
 }
 
+let profileMenu = document.getElementById("profilemenu");
+        let mobMenu = document.getElementById("mobile-menu");
+
+        let isOpenedNow = false;
+        let isMobOpen = false;
+        function profileController() {
+            if(isOpenedNow === false) {
+                profileMenu.classList.remove("md:hidden");
+                profileMenu.classList.add("md:block");
+                isOpenedNow = true;
+            } else {
+                profileMenu.classList.add("md:hidden");
+                isOpenedNow = false;
+            }
+        }
+        function mobMenuController() {
+            if(isMobOpen === false) {
+                mobMenu.classList.remove("hidden");
+                isMobOpen = true;
+            } else {
+                mobMenu.classList.add("hidden");
+                isMobOpen = false;
+            }
+        }
+
 let prevDisplay = document.getElementById('prev-display');
 let nextDisplay = document.getElementById('next-display');
 let nextBtn = document.getElementById('next-btn');
