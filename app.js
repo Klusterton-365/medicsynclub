@@ -97,7 +97,7 @@ function loadMedicationList(){
 			} else {
 				const data = response.data;
 				data.forEach(item => {
-					document.querySelector('#medList').innerHTML +=  `<div class="rounded-lg p-4 flex flex-col gap-2 bg-gray-200">
+					document.querySelector('#medList').innerHTML +=  `<div class="rounded-lg p-4 flex flex-col gap-2 bg-white">
 					<h1 class="font-bold">${item.medication_name}</h1>
 					<span class="flex flex-col gap-1">
 						<span>${item.dosage ?? 0} * ${item.reminders_per_day ?? 0} times every ${item.days_interval ?? 0} days, for ${item.total_days ?? 0} days </span>
