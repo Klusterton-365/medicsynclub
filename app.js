@@ -84,7 +84,7 @@ function logout() {
 		  // User clicked outside the notification, perform logout actions
 		  sessionStorage.removeItem('user');
 		  localStorage.removeItem('token');
-		  window.location = "dashboard";
+		  window.location = "dashboard.html";
 		}
 	  }
 	});

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Qr Code</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +34,8 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="./dashboard.html" class="bg-green-700 text-white rounded-md px-3 py-2 text-sm font-medium" 
+                        <a href="./dashboard.html" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
+                        py-2 text-sm font-medium" 
                         aria-current="page">Dashboard</a>
                         <a href="./medication.html" class="text-white hover:bg-green-400 hover:text-white rounded-md px-3 
                         py-2 text-sm font-medium">Medication</a>
@@ -79,10 +80,8 @@
                     py-1 hidden md:hidden shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" 
                     aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"  id="profilemenu">
                     
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 username" role="menuitem" 
+                    <a href="./profile.html" class="block px-4 py-2 text-sm text-gray-700 username" role="menuitem" 
                     tabindex="-1" id="user-menu-item-0" >Your Profile</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" 
-                    tabindex="-1" id="user-menu-item-1">Settings</a>
                     <a href="#" onclick="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:text-black" role="menuitem" 
                     tabindex="-1" id="user-menu-item-2">Sign out</a>
                     </div>
@@ -147,9 +146,8 @@
                 </button>
             </div>
             <div class="mt-3 space-y-1 px-2">
-                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-white 
+                <a href="./profile.html" class="block rounded-md px-3 py-2 text-base font-medium text-white 
                 hover:bg-green-400 hover:text-white username">Your Profile</a>
-                <a href="./profile.html" class="bg-green-700 text-white block rounded-md px-3 py-2 text-base font-medium">Settings</a>
                 <a onclick="logout()" class="block rounded-md px-3 py-2 text-base font-medium text-white 
                 hover:bg-green-400 hover:text-white">Sign out</a>
             </div>
